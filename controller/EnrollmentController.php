@@ -22,10 +22,10 @@ class EnrollmentController
         return $this->enrollment->create();
     }
 
-    public function readAll()
-    {
-        return $this->enrollment->readAll();
-    }
+        public function readAll()
+        {
+            return $this->enrollment->readAll();
+        }
 
     public function readByStudent($student_id)
     {

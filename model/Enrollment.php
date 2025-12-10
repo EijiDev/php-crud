@@ -28,16 +28,17 @@ class Enrollment
         return $stmt->execute();
     }
 
-    // Read all enrollments
     public function readAll()
     {
-        $query = "SELECT e.*, 
-                         s.name AS student_name, s.email AS student_email, 
-                         c.id AS course_id, c.course_name AS course_name
-                  FROM " . $this->table . " e
-                  LEFT JOIN students s ON e.student_id = s.id
-                  LEFT JOIN courses c ON e.course_id = c.id
-                  ORDER BY e.enrollment_date DESC";
+        $query = "SELECT 
+                e.*, 
+                s.name AS name, 
+                s.email AS email, 
+                c.course_name AS course_name
+              FROM " . $this->table . " e
+              LEFT JOIN students s ON e.student_id = s.id
+              LEFT JOIN courses c ON e.course_id = c.id
+              ORDER BY e.enrollment_date DESC";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

@@ -1,20 +1,13 @@
 <?php
-// views/edit.php
+// views/create.php
 require_once __DIR__ . '/../controller/StudentController.php';
 $controller = new StudentController();
 
 if ($_POST) {
-    $controller->update($_POST['id'], $_POST['name'], $_POST['email']);
-    header("Location: ../public/index.php");
-    exit;
-}
-
-$id = $_GET['id'];
-$current = $controller->readOne($id);
-
-if (!$current) {
-    header("Location: ../public/index.php");
-    exit;
+    if($controller->create($_POST['name'], $_POST['email'])){
+        header("Location: ../public/index.php");
+        exit;
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -22,9 +15,8 @@ if (!$current) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/edit.css">
-    <title>CampusConnect - Edit Student</title>
-
+    <link rel="stylesheet" href="../public/css/student.css">
+    <title>CampusConnect - Add Student</title>
 </head>
 <body>
     <aside class="sidebar">
@@ -64,8 +56,8 @@ if (!$current) {
 
     <main class="main-content">
         <div class="header">
-            <h1>Edit Student</h1>
-            <p>Update student information in the system.</p>
+            <h1>Add New Student</h1>
+            <p>Create a new student record in the system.</p>
         </div>
 
         <div class="content-card">
@@ -74,17 +66,16 @@ if (!$current) {
             </div>
             <div class="form-content">
                 <form method="POST">
-                    <input type="hidden" name="id" value="<?= htmlspecialchars($current['id']) ?>">
                     <div class="form-group">
                         <label for="name">Student Name</label>
-                        <input type="text" id="name" name="name" value="<?= htmlspecialchars($current['name']) ?>" required>
+                        <input type="text" id="name" name="name" placeholder="Enter student name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" value="<?= htmlspecialchars($current['email']) ?>" required>
+                        <input type="email" id="email" name="email" placeholder="Enter email address" required>
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Update Student</button>
+                        <button type="submit" class="btn btn-primary">Save Student</button>
                         <a href="../public/index.php" class="btn btn-secondary">Cancel</a>
                     </div>
                 </form>
